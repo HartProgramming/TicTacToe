@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  background-color: aliceblue;
+  text-align: center;
+  justify-content: center;
+  margin-top: 70px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#newGame{
+  width: 120px;
+  height: 70px;
+  background-color: navy;
+  color: white;
+  border-radius: 25px;
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+#newGame:hover{
+  background-color: white;
+  color: navy;
+}
+
+.win{
+  background-color: blue;
+  color: white;
+}
+
+section {
+  width: 600px;
+  height: 600px;
+  display: flex;
+  background-color: blue;
+  justify-content:flex-start;
+  display: flex;
+  position: relative;
+  border: 5px solid black;
+  margin: auto;
+  flex-direction: row;
+  flex-grow: 5;
+  flex-wrap: wrap;
+  
+}
+/* Div class that makes three different columns to put the boxes into*/
+div{
+    height: 194px;
+    width: 194px;
+    background-color: rgb(57, 117, 57);
+    border: 3px solid rgb(66, 66, 117);
+    margin: 0;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    font-size: 100px;
+}
+div span{
+    margin-top: 30px;
+    color: white;
+}
+div:hover{
+    background-color: rgba(128, 128, 128, 0.548);
+}
+
+.box{
+  font-size: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
