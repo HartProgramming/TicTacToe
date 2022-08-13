@@ -19,8 +19,6 @@ divSection.style.display = "none";
 
 /* Variables declared without expressions that will be used in the various functions to execute the game */
 
-
-
 let turn;
 let choice = "";
 let choiceAlt;
@@ -71,56 +69,41 @@ spliced out of the ticArray and the ticArray is updated, this allows the compute
 marks on the board */
 
 function randomComputer(ticArray) {
-    console.log(ticArray.length)
+    if (ticArray.length === 0) {
+        return player.textContent = 'Tie'
+    }
     choice = ticArray[randomNumber(ticArray.length)];
-    console.log(choice)
     choice.textContent = userComputer.mark
     ticArray.splice(ticArray.indexOf(choice), 1);
-    console.log(choice);
-    console.log(ticArray);
     player.textContent = "Player Turn"
-    console.log("here")
     gameFlow()
-
-
 }
-
-
 
 /* playerTurn loops through the ticArray and creates a click event on each box.
 Once the user clicks a box the user mark is assigned to it, the splicePlayer variable is
 then assigned the index of the box clicked according to the array and then is spliced. */
 
-
-
-
-
-
+function playerClick() {
+    if (ticArray.indexOf(this) === -1) {
+        player.textContent = "Computer turn"
+    } else {
+        this.textContent = userPlayer.mark;
+        ticArray.splice(ticArray.indexOf(this), 1)
+        player.textContent = "Computer Turn"
+        gameFlow()
+    }
+}
 
 function gameFlow() {
-    console.log("run")
     if (player.textContent === "Player Turn") {
-
         for (let x of ticArray) {
-            console.log("arr")
-            x.addEventListener("click", function () {
-                if (ticArray.indexOf(x) === -1) {
-                    player.textContent = "Computer turn"
-                } else {
-                    x.textContent = userPlayer.mark;
-                    console.log(x)
-                    console.log(ticArray)
-                    console.log(ticArray.indexOf(x))
-                    ticArray.splice(ticArray.indexOf(x), 1)
-                    console.log(ticArray)
-                    player.textContent = "Computer Turn"
-                    gameFlow()
-                }
-            })
+            x.addEventListener("click", playerClick)
         }
         winner()
     } else if (player.textContent === "Computer Turn") {
-        randomComputer(ticArray)
+        setTimeout(() => {
+            randomComputer(ticArray)
+        }, 500);
         winner()
     }
 }
@@ -134,12 +117,9 @@ function checkWin(x, y, z, user, userName) {
         z.classList.add("win");
         turn = undefined;
         ticArray = [];
-        console.log(ticArray)
         return
     }
-
 }
-
 
 function winner() {
     checkWin(first, second, third, userComputer.mark, userComputer.user)
@@ -158,9 +138,11 @@ function winner() {
     checkWin(third, fifth, seventh, userPlayer.mark, userPlayer.user)
     checkWin(fourth, fifth, sixth, userPlayer.mark, userPlayer.user)
     checkWin(seventh, eighth, ninth, userPlayer.mark, userPlayer.user)
+    if (ticArray.length === 0) {
+        player.textContent = 'Tie';
+    }
     return
 }
-
 
 function refresh(turn) {
     divSection.style.display = "flex";
@@ -168,21 +150,15 @@ function refresh(turn) {
     turn = null;
     ticArray = [first, second, third, fourth, fifth, sixth, seventh, eighth, ninth];
     turn = randomTurn(playArr, randomNumber(playArr.length))
-    console.log(turn)
     player.textContent = `${turn} Turn`;
     game.textContent = "";
     for (let x of ticArray) {
         x.textContent = "";
         x.classList.remove("win");
     }
-    console.log("hit")
     gameFlow(turn)
     return
 }
-
-
-
-
 /* Function for selecting div and changing Player span */
 
 newGame.addEventListener("click", refresh)
